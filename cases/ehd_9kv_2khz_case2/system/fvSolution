@@ -1,0 +1,59 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2406                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version         2.0;
+    format          ascii;
+    class           dictionary;
+    object          fvSolution;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+
+}
+
+
+PIMPLE
+{
+    momentumPredictor no;
+    nOuterCorrectors 5; // used by pimple.loop()
+    nCorrectors    1; // used by pimple.correct()
+    nNonOrthogonalCorrectors 0; // used by pimple.correct()
+
+    residualControl
+    {
+        phiE
+        {
+                tolerance  1e-5;
+                relTol      0;
+        }
+        rhoC
+        {
+                tolerance  1e-4;
+                relTol      0;
+        }
+    }
+}
+
+relaxationFactors
+{
+    fields
+    {
+        // ne            0.7; 
+    }
+    equations
+    {
+        ".*"            0.9; // 0.9 is more stable but 0.95 more convergent
+    }
+}
+
+
+// ************************************************************************* //

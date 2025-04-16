@@ -1,0 +1,62 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2406                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+FoamFile
+{
+    version         2;
+    format          binary;
+    arch            "LSB;label=32;scalar=64";
+    class           volScalarField;
+    location        "0/air";
+    object          epsR;
+}
+
+dimensions      [ 0 0 0 0 0 0 0 ];
+
+internalField   uniform 1;
+
+boundaryField
+{
+    top
+    {
+        type            zeroGradient;
+    }
+    inlet
+    {
+        type            zeroGradient;
+    }
+    outlet
+    {
+        type            zeroGradient;
+    }
+    electrode_exposed
+    {
+        type            zeroGradient;
+    }
+    back
+    {
+        type            empty;
+    }
+    front
+    {
+        type            empty;
+    }
+    air_to_dielectric1
+    {
+        type            fixedValue;
+        value           uniform 1;
+    }
+    air_to_dielectric2
+    {
+        type            fixedValue;
+        value           uniform 1;
+    }
+}
+
+
+// ************************************************************************* //

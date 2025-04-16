@@ -1,0 +1,71 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2406                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      topoSetDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+actions
+(
+    {
+        name    dielectric1;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (-0.15 -0.05 -1.0) (0.15 0 1.0);// sDBD 
+        }
+    }
+    
+    {
+        name    air;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {   
+            box (-0.15 -1.0E-8 -1.0) (0.15 0.1 1.0);// sDBD 
+            // boxes
+            // (
+            //     (-0.15 6.5532e-5 -1.0) (0.15 0.15 1.0)// sDBD
+            //     (1.96073e-05 -1.0e-8 -1.0) (0.15 6.5535e-5 1.0)// sDBD
+            //     (-0.15 -1.0e-8 -1.0) (-2.515e-3 6.5535e-5 1.0)// sDBD
+            // );
+        }
+    }
+    
+    {
+        name    dielectric1;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set dielectric1;
+        }
+    }
+
+    {
+        name    air;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set air;
+        }
+    }
+);
+
+// ************************************************************************* //

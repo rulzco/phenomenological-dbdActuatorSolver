@@ -1,0 +1,75 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2406                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      binary;
+    arch        "LSB;label=32;scalar=64";
+    class       volScalarField;
+    location    "0/dielectric1";
+    object      phiE;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [ 1 2 -3 0 0 -1 0 ];
+
+internalField   uniform 0;
+
+boundaryField
+{
+    bottom
+    {
+        type            zeroGradient;
+    }
+    inlet
+    {
+        type            zeroGradient;
+    }
+    outlet
+    {
+        type            zeroGradient;
+    }
+    electrode_exposed
+    {
+        type            codedFixedValue;
+        value           uniform 9000;
+        name            appliedVoltage;
+        code            #{  
+            const scalar t = this->db().time().value();
+            const scalar V = 9.0e3;
+            // const scalar omega = 15.0E3;
+            // const scalar pi(M_PI);
+            operator==(V);
+            // operator==(V*sin(2*pi*omega*t));
+        #};
+    }
+    electrode_grounded
+    {
+        type            fixedValue;
+        value           uniform 0;
+    }
+    back
+    {
+        type            empty;
+    }
+    front
+    {
+        type            empty;
+    }
+    dielectric1_to_air
+    {
+        type            compressible::turbulentTemperatureRadCoupledMixed;
+        value           $internalField;
+        Tnbr            phiE;
+        kappaMethod     lookup;
+        kappa           epsD;
+    }
+}
+
+
+// ************************************************************************* //

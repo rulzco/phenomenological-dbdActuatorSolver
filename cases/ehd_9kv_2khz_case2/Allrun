@@ -1,0 +1,23 @@
+#!/bin/sh
+cd "${0%/*}" || exit                                # Run from this directory
+. ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
+#------------------------------------------------------------------------------
+
+# Clean run time folders
+foamListTimes -rm
+rm log*
+rm -rf postProcessing
+
+# cp -a 0.org/. 0/
+
+touch case.foam
+
+runApplication $(getApplication) 
+
+# postProcess -func singleGraph -region dielectric1 -latestTime 
+# postProcess -func singleGraph -region dielectric2 -latestTime 
+# postProcess -func singleGraph -region air -latestTime
+# python3 plot.py
+
+echo
+echo Case ended

@@ -1,0 +1,49 @@
+#!/bin/bash
+cd "${0%/*}" || exit                                # Run from this directory
+. ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
+#------------------------------------------------------------------------------
+
+restore0Dir
+
+# Meshing
+runApplication blockMesh -dict system/blockMeshDictSDBD
+
+# Run topoSet and Split regions
+topoSet -dict system/topoSetDictRegion
+splitMeshRegions -cellZones -overwrite
+
+echo Removing fields
+echo 
+
+rm -v 0/air/epsD
+
+for i in $(foamListRegions solid)
+do
+    rm -v 0/$i/{ne,np,nn,rhoC,T,epsR}
+    rm -f processor*/0/$i/{ne,np,nn,rhoC,T,epsR}
+done
+
+echo
+echo Setting boundary conditions
+echo 
+
+for i in dielectric1 dielectric2
+do
+    # foamDictionary 0/$i/phiE -entry "boundaryField/"$i"_to_air" -set "{type potentialCoupledBaffleMixed;value \$internalField;sigma 3.4;Tnbr phiE;}"
+    foamDictionary 0/$i/epsD -entry "boundaryField/"$i"_to_air" -set "{type fixedValue;value uniform 3.4;}"
+    # foamDictionary 0/air/phiE -entry "boundaryField/air_to_"$i -set "{type potentialCoupledBaffleMixed;value \$internalField;sigma 1.0;Tnbr phiE;}"
+    foamDictionary 0/air/epsR -entry "boundaryField/air_to_"$i -set "{type fixedValue;value uniform 1.0;}"
+done
+
+for region in $(foamListRegions)
+do
+    runApplication -s $region changeDictionary -region $region
+done
+
+# cp 0.orig/air/* 0/air/
+
+touch case.foam
+
+# Output message
+echo
+echo Case created

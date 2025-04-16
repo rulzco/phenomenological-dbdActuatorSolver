@@ -1,0 +1,79 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2406                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      binary;
+    arch        "LSB;label=32;scalar=64";
+    class       polyBoundaryMesh;
+    location    "constant/dielectric1/polyMesh";
+    object      boundary;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+8
+(
+    bottom
+    {
+        type            patch;
+        nFaces          130;
+        startFace       30611;
+    }
+    inlet
+    {
+        type            patch;
+        nFaces          124;
+        startFace       30741;
+    }
+    outlet
+    {
+        type            patch;
+        nFaces          124;
+        startFace       30865;
+    }
+    electrode_exposed
+    {
+        type            wall;
+        inGroups        1(wall);
+        nFaces          60;
+        startFace       30989;
+    }
+    electrode_grounded
+    {
+        type            wall;
+        inGroups        1(wall);
+        nFaces          150;
+        startFace       31049;
+    }
+    back
+    {
+        type            empty;
+        inGroups        1(empty);
+        nFaces          15470;
+        startFace       31199;
+    }
+    front
+    {
+        type            empty;
+        inGroups        1(empty);
+        nFaces          15470;
+        startFace       46669;
+    }
+    dielectric1_to_air
+    {
+        type            mappedWall;
+        inGroups        1(wall);
+        nFaces          70;
+        startFace       62139;
+        sampleMode      nearestPatchFace;
+        sampleRegion    air;
+        samplePatch     air_to_dielectric1;
+    }
+)
+
+// ************************************************************************* //

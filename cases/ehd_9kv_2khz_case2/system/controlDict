@@ -1,0 +1,76 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2406                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile {
+  version 2.0;
+  format ascii;
+  class dictionary;
+  object controlDict;
+}
+ 
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application multiRegionSuzenEHD;
+
+startFrom latestTime;
+
+startTime 0;
+
+stopAt writeNow;
+
+endTime 0.05;
+
+deltaT 1e-5;
+
+writeControl adjustable;
+
+writeInterval 1e-3;
+
+purgeWrite 0;
+
+writeFormat binary;
+
+writePrecision 6;
+
+writeCompression off;
+
+timeFormat general;
+
+timePrecision 6;
+
+graphFormat raw;
+
+runTimeModifiable true;
+
+// dimensionSet        0;// dimension check off
+
+functions
+{
+  // #include "FOCourantNo"
+
+  // probes
+  // {
+  //     type            probes;
+  //     libs            ("libsampling.so");
+  //     writeControl    timeStep;
+  //     writeInterval   44000;
+  //     region          air;
+
+  //     fields
+  //     (phiE);
+
+  //     probeLocations
+  //     (
+  //         (0 6e-4 5e-4)
+  //         (0 2e-4 5e-4)
+  //     );
+  // }
+
+};
+
+libs ("libpotentialcoupled.so");
+// ************************************************************************* //

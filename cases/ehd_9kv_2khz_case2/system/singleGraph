@@ -1,0 +1,47 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2406                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+#includeEtc "caseDicts/postProcessing/graphs/sampleDict.cfg"
+
+type            sets;
+libs            (sampling);
+writeControl    writeTime;
+interpolationScheme cellPoint;
+setFormat       csv;
+fields          ( phiE E );
+
+setConfig
+{
+    type    midPoint;
+    axis    y;  // x, y, z, xyz
+}
+
+sets
+{
+    line
+    {
+        $setConfig;
+        start   (0 8e-4 5e-4);
+        end     (0 0 5e-4);
+    }
+}
+
+// setFormat   csv;
+
+// start           (1.5e-4 8e-4 5e-4);
+// end             (1.5e-4 0 5e-4);
+// nPoints         50;
+
+// fields          (phiE E);
+
+// axis            y;
+
+// #includeEtc "caseDicts/postProcessing/graphs/sampleDict.cfg"
+
+// #includeEtc "caseDicts/postProcessing/graphs/graph.cfg"
+
+// ************************************************************************* //

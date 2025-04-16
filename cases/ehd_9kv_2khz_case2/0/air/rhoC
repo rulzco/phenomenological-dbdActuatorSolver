@@ -1,0 +1,85 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2406                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      binary;
+    arch        "LSB;label=32;scalar=64";
+    class       volScalarField;
+    location    "0/air";
+    object      rhoC;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [ 0 -3 1 0 0 1 0 ];
+
+internalField   uniform 0;
+
+boundaryField
+{
+    top
+    {
+        type            zeroGradient;
+    }
+    inlet
+    {
+        type            zeroGradient;
+    }
+    outlet
+    {
+        type            zeroGradient;
+    }
+    electrode_exposed
+    {
+        type            zeroGradient;
+    }
+    back
+    {
+        type            empty;
+    }
+    front
+    {
+        type            empty;
+    }
+    air_to_dielectric1
+    {
+        type            codedFixedValue;
+        value           $internalField;
+        name            rhoCDistribution;
+        code            #{
+
+                const vectorField& Cf = patch().Cf();
+                scalarField& field = *this;
+
+                const scalar sigma = 0.3;
+                const scalar mu = 0;//5.625E-4;
+                const scalar xgap = 0.0;
+                const scalar xref = 0.025;//0.0105;
+                const scalar L = xref + xgap;
+
+                forAll(Cf, faceI)
+                {
+                    const scalar x = Cf[faceI][0];
+
+                    // if (x >= xgap && x <= L);
+                    if(x >= xgap)
+                    {
+                        field[faceI] = exp(-pow(((x-mu)/xref),2)/(2*pow(sigma,2)));
+                        //Gx4 = np.exp( -((x-0.005)/0.005)**2 / (2 * 0.5**2) )
+                    }
+                    else
+                    {
+                        field[faceI] = 0;
+                    }
+                }
+            #};
+    }
+}
+
+
+// ************************************************************************* //
