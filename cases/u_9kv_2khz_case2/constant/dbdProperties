@@ -1,0 +1,33 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2212                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      dbdProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dbdParameters   function;
+
+maxRhoC         0.001547;
+
+debyeLen        0.000615;
+
+baseFreq        2.0E3;
+
+dutyCycleActive off;
+
+fPulse          150;
+
+DC              0.5;
+
+rhoAir          1.225;
+
+// ************************************************************************* //

@@ -1,0 +1,223 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2212                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+scale 1.0;
+
+// Geometric parameters
+
+x_min 0.01;   // Domain length in x-axis min
+x_max 0.1;    // Domain length in x-axis max
+y_min 0.0;    // Domain length in y-axis min
+y_max 0.05;    // Domain length in y-axis min
+
+l_expE 1.5e-2;            // Length of exposed electrode
+t_expE 5.0e-5;         // Thickness of exposed electrode 
+
+// Grid managment in x-direction
+
+cellsEsposedX 60;           // Cells over exposed electrode in the x-axis  
+cellsLHS 6;            // Cells in LHS block in the x-axis
+cellsRHS 80;            // Cells in RHS block in the x-axis
+
+expRatioE 0.0036;             // Expansion ratio of exposed electrode
+expRatioLHS 0.6209;             // Expansion ratio of the left side of the domain in the x-axis  
+expRatioRHS 1862.1820;                // Expansion ratio of the right side of the domain in the x-axis 
+
+// Grid managment in y-direction
+
+cellsExposedY 10;            // Cells in the blocks of the exposed electrode thickness in the y-axis
+cellsTopY 72;            // Cells from the thickness of the exposed electrode up to the top boundary in the y-axis
+
+expRatioExpY 1;                // Expansion ratio of the upper side of the domain in the y-axis
+expRatioTopY 868.7216;                // Expansion ratio of the down side of the domain in the y-axis
+
+// Grid managment in z-direction
+z0 -0.0025;
+z1 0.0025;                   // Depth in z-axis
+
+cellsZ 1;
+expRatioZ 1;
+
+cellToCellRatio 1.1;
+
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// Vertices assign
+
+x0 $x_max;
+x1 $x_max;
+x2 $x_max;
+x3 0;
+x4 0;
+x5 0;
+x6 #calc "-$l_expE";
+x7 #calc "-$l_expE";
+x8 #calc "-$l_expE";
+x9 #calc "-($x_min+$l_expE)";
+x10 #calc "-($x_min+$l_expE)";
+x11 #calc "-($x_min+$l_expE)";
+
+y0 0;
+y1 $t_expE;
+y2 #calc "$y_max+$t_expE";
+y3 0;
+y4 $t_expE;
+y5 #calc "$y_max+$t_expE";
+y6 0;
+y7 $t_expE;
+y8 #calc "$y_max+$t_expE";
+y9 0;
+y10 $t_expE;
+y11 #calc "$y_max+$t_expE";
+
+vertices
+(
+    ($x0 $y0 $z0)//0
+    ($x1 $y1 $z0)//1
+    ($x2 $y2 $z0)//2
+    ($x3 $y3 $z0)//3
+    ($x4 $y4 $z0)//4
+    ($x5 $y5 $z0)//5
+    ($x6 $y6 $z0)//6
+    ($x7 $y7 $z0)//7
+    ($x8 $y8 $z0)//8
+    ($x9 $y9 $z0)//9
+    ($x10 $y10 $z0)//10
+    ($x11 $y11 $z0)//11
+
+    ($x0 $y0 $z1)//12
+    ($x1 $y1 $z1)//13
+    ($x2 $y2 $z1)//14
+    ($x3 $y3 $z1)//15
+    ($x4 $y4 $z1)//16
+    ($x5 $y5 $z1)//17
+    ($x6 $y6 $z1)//18
+    ($x7 $y7 $z1)//19
+    ($x8 $y8 $z1)//20
+    ($x9 $y9 $z1)//21
+    ($x10 $y10 $z1)//22
+    ($x11 $y11 $z1)//23
+);
+
+
+blocks
+(
+    hex (3 0 1 4 15 12 13 16) ($cellsRHS $cellsExposedY $cellsZ) simpleGrading ($expRatioRHS $expRatioExpY $expRatioZ)//0
+    hex (4 1 2 5 16 13 14 17) ($cellsRHS $cellsTopY $cellsZ) simpleGrading ($expRatioRHS $expRatioTopY $expRatioZ)//1
+
+    // hex (6 3 4 7 18 15 16 19) ($cellsEsposedX $cellsExposedY $cellsZ) simpleGrading ($expRatioE $expRatioExpY $expRatioZ)//2
+    hex (7 4 5 8 19 16 17 20) ($cellsEsposedX $cellsTopY $cellsZ) simpleGrading ($expRatioE $expRatioTopY $expRatioZ)//3
+
+    hex (9 6 7 10 21 18 19 22) ($cellsLHS $cellsExposedY $cellsZ) simpleGrading ($expRatioLHS $expRatioExpY $expRatioZ)//4
+    hex (10 7 8 11 22 19 20 23) ($cellsLHS $cellsTopY $cellsZ) simpleGrading ($expRatioLHS $expRatioTopY $expRatioZ)//5
+);
+
+edges
+(
+);
+
+boundary
+(
+    top
+    {
+        type patch;
+        faces
+        (
+            (11 23 20 8)   // From Block 5
+            (8 20 17 5)   // From Block 3
+            (5 17 14 2)   // From Block 1
+        );
+    }
+    
+    inlet
+    {
+        type patch;
+        faces
+        (
+            (9 21 22 10)    // from Block 4
+            (10 22 23 11)    // From Block 5
+        );
+    }
+
+    outlet
+    {
+        type patch;
+        faces
+        (
+            (12 0 1 13)    // from Block 0
+            (13 1 2 14)    // From Block 1
+        );
+    }
+
+    exposed
+    {
+        type wall;
+        faces
+        (
+            (6 18 19 7)     // From Block 4
+            (7 19 16 4)     // From Block 3
+            (3 15 16 4)     // From Block 0
+        );
+    }
+       
+    wall
+    {
+        type wall;
+        faces
+        (   
+            (3 15 12 0) // From Block 0
+            (9 21 18 6) // From Block 4
+        );
+    }
+
+    back
+    {
+        type empty;
+        faces
+        (
+            // back
+            (3 0 1 4)   // From Block 0
+            (4 1 2 5)    // From Block 1
+            // (6 3 4 7)    // From Block 2
+            (7 4 5 8)   // From Block 3
+            (9 6 7 10)   // From Block 4
+            (10 7 8 11)    // From Block 5
+        );
+    }
+    
+    front
+    {
+        type empty;
+        faces
+        (
+            // front
+            (15 12 13 16)   // From Block 0
+            (16 13 14 17)    // From Block 1
+            // (18 15 16 19)    // From Block 2
+            (19 16 17 20)   // From Block 3
+            (21 18 19 22)   // From Block 4
+            (22 19 20 23)    // From Block 5
+        );
+    }
+);
+
+mergePatchPairs
+(
+);
+
+// ************************************************************************* //
