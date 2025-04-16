@@ -1,41 +1,60 @@
-# git-ls-files --others --exclude-from=.git/info/exclude
-# Lines that start with '#' are comments.
+### OpenFOAM ###
+# Timestep directories
+0.*
+[1-9]*
+dynamicCode/
 
-# Editor and misc backup files - anywhere
-*~
-.*~
-.*.swp
-*.bak
-*.bak[0-9][0-9]
-\#*\#
+# Fields that must get ignored
+*/phi*
+*/meshPhi*
 
-# File-browser settings - anywhere
-.directory
+# Decomposed domain
+processor*
 
-# CVS recovered versions - anywhere
-.#*
+# logfiles
+log.*
+*log
+*/logs/*
 
-# Objects and archives - anywhere
-*.[oa]
-*.la
-*.so
+# paraview/ParaFoam
+*.foam
+*.OpenFOAM
+*.pvsm
 
-# Derived files
-lex.yy.c
+# mesh data that is no dictionary
+*/constant/polyMesh/points*
+*/constant/polyMesh/faces*
+*/constant/polyMesh/owner*
+*/constant/polyMesh/neighbour*
+*/constant/polyMesh/boundary*
+*/constant/polyMesh/sets
+*/constant/polyMesh/*
 
-# Corefiles
-core
+# Zones and levels
+*Level*
+*Zone*
 
-# Dependency files - anywhere
-*.dep
+# snappyHexMesh files that are not snappyHexMeshDict
+*/constant/polyMesh/refinementHistory*
+*/constant/polyMesh/surfaceIndex*
+*/constant/extendedFeatureEdgeMesh/*
+constant/triSurface
 
-# lnInclude (symlink) directories - anywhere
+# function object and post-processing data
+forces
+postProcessing
+
+# Needed when C++ code is built using the OpenFOAM library, since it does not
+# use a "normal" build tool (make, cmake, ..).
 lnInclude
+*.dep
+linux*
+Darwin*
 
-# Build directories - anywhere
-linux*Clang*/
-linux*Gcc*/
-linux*Icc*/
-solaris*Gcc*/
-SunOS*Gcc*/
-platforms/
+#exclude important folders and files:
+!0/
+!0.orig/
+!constant/
+!system/
+!.gitignore
+!phiE
