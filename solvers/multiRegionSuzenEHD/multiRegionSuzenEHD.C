@@ -25,17 +25,25 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Application
-    chtMultiRegionFoam
+    multiRegionSuzenEHD
 
 Group
-    grpHeatTransferSolvers
+    grpElectrohydrodynamicSolvers
 
 Description
-    Transient solver for buoyant, turbulent fluid flow and solid heat
-    conduction with conjugate heat transfer between solid and fluid regions.
+    Steady solver for the Suzen-Huang dielectric barrier discharge (DBD) 
+    electrohydrodynamic (EHD) model. The solver supports multiple solid and
+    fluid regions (multi-region framework), enabling the simulation of
+    configurations with multiple electrodes or dielectric arrays.
 
-    It handles secondary fluid or solid circuits which can be coupled
-    thermally with the main fluid region. i.e radiators, etc.
+    The solver computes:
+      - Electric potential distribution
+      - Electric field
+      - Charge density
+      - Electrohydrodynamic (EHD) body force
+
+    Designed for EHD flow actuation in both fluid domains, with
+    region coupling to handle dielectric and electrode effects.
 
 \*---------------------------------------------------------------------------*/
 
