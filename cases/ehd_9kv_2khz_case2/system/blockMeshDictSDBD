@@ -59,39 +59,6 @@ expRatioyl 0.0113;                // Expansion ratio of the down side of the dom
 z_start -0.0025;
 z_end 0.0025;                   // Depth in z-axis
 
-// cellToCellRatio 1.2
-
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * // Automated RHS and LHS cells number
-// LRHS #eval "$x_max-$L_grdE";        // Compute relative RHS length
-// LLHS #eval "-1*$x_min-$L_expE";     // Compute relative LHS length
-
-// // Compute initial cell size of RHS for grounded electrode cells
-// dx0Grd #eval "($L_grdE*($cellToCellRatio-1)) / (pow($cellToCellRatio, $cellsGrdE)-1)"; // nonuniform
-// dxNGrd #eval "$dx0Grd*pow($cellToCellRatio,$cellsGrdE-1)"; // Only for nonuniform cells
-
-// // dx0Grd #eval "$L_grdE / $cellsGrdE";    // Uniform grounded electrode cells
-// // dxNGrd $dx0Grd; // Uniform grounded electrode cells
-// dx0RHS $dxNGrd; // Initial cell size for RHS
-
-// // Compute initial cell size of LHS for exposed electrode cells
-// dx0Exp #eval "($L_expE*($cellToCellRatio-1)) / (pow($cellToCellRatio, $cellsExpE)-1)"; // nonuniform
-// dxNExp #eval "$dx0Exp*pow($cellToCellRatio,$cellsExpE-1)"; // Only for nonuniform cells
-
-// // dx0Exp #eval "$L_expE / $cellsGrdE";    // Uniform exposed electrode cells
-// // dxNExp $dx0Exp; // Uniform exposed electrode cells
-// dx0LHS $dxNExp; // Initial cell size for LHS
-
-// //Compute cells for RHS based on cell-to-cell ratio and initial cell size
-// cellsRHS #eval "round(log10($LRHS / $dx0RHS*($cellToCellRatio-1)+1) / log10($cellToCellRatio))";
-// dxNRHS #eval "$dx0RHS*pow($cellToCellRatio,$cellsRHS-1)";
-// expRatioRHS #eval "$dxNRHS / $dx0RHS";      // Total exp ratio RHS
-// //Compute cells for RHS based on cell-to-cell ratio and initial cell size
-// cellsLHS #eval "round(log10($LLHS / $dx0LHS*($cellToCellRatio-1)+1) / log10($cellToCellRatio))";
-// dxNLHS #eval "$dx0LHS*pow($cellToCellRatio,$cellsLHS-1)";
-// expRatioLHS #eval "1 / ($dxNLHS / $dx0LHS)";      // Total exp ratio LHS
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-
-
 // Vertices assign
 
 X0 0.0;

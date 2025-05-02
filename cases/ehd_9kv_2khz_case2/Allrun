@@ -14,10 +14,5 @@ touch case.foam
 
 runApplication $(getApplication) 
 
-# postProcess -func singleGraph -region dielectric1 -latestTime 
-# postProcess -func singleGraph -region dielectric2 -latestTime 
-# postProcess -func singleGraph -region air -latestTime
-# python3 plot.py
-
 echo
 echo Case ended
