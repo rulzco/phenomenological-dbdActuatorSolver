@@ -16,9 +16,6 @@ FoamFile
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 patchMap        
 (   
-    // front front
-    // back back
-    // outlet outlet
     electrode_exposed exposed
 );
 

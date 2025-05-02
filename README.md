@@ -31,6 +31,3 @@ Contributions to the repository are welcome! If you have suggestions, bug fixes,
 
 ### **Citation**
 
-
-[![DOI](https://zenodo.org/badge/358095687.svg)](https://doi.org/10.5281/zenodo.5860554)
-

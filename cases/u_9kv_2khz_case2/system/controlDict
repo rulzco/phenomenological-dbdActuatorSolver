@@ -51,27 +51,6 @@ maxCo           5;
 
 functions   
 {
-// #includeFunc  residuals
-// #includeFunc  yPlus 
-// #includeFunc  vorticity 
-// #includeFunc  wallShearStress
-
-// 	probes
-//     {
-//         type            probes;
-//         libs            ("libsampling.so");
-//         writeControl    timeStep;
-//         writeInterval   1;
-
-//         fields	(p U k);
-
-//         probeLocations
-//         (
-//             (0.003 0.0005 -0.005)
-//         );
-	
-//     }
-
 };
 
 // ************************************************************************* //

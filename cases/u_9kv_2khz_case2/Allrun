@@ -17,8 +17,5 @@ mapFields -sourceRegion air -sourceTime latestTime ../ehd_9kv_2khz_case2
 
 runApplication $(getApplication) 
 
-postProcess -func "mag(U)" -latestTime
-postProcess -func singleGraph -latestTime
-
 echo
 echo Case ended
