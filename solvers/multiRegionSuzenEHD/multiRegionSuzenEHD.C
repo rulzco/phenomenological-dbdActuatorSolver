@@ -8,6 +8,10 @@
     Copyright (C) 2011-2016 OpenFOAM Foundation
     Copyright (C) 2017-2019,2022 OpenCFD Ltd.
 -------------------------------------------------------------------------------
+    Developed by:  (2025)
+    Custom solver for multi-region Suzen-Huang DBD EHD modeling
+    https://github.com/rulzco/multiRegionSuzenEHD
+
 License
     This file is part of OpenFOAM.
 
@@ -28,7 +32,7 @@ Application
     multiRegionSuzenEHD
 
 Group
-    grpElectrohydrodynamicSolvers
+    grpCustomEHDSolvers
 
 Description
     Steady solver for the Suzen-Huang dielectric barrier discharge (DBD) 

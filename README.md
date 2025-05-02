@@ -28,3 +28,9 @@ Further details on how to use the solver and test cases will be added as updates
 ### **Contributing**
 
 Contributions to the repository are welcome! If you have suggestions, bug fixes, or improvements, feel free to submit a pull request or open an issue.
+
+### **Citation**
+
+
+[![DOI](https://zenodo.org/badge/358095687.svg)](https://doi.org/10.5281/zenodo.5860554)
+
