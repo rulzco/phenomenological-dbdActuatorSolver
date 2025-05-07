@@ -21,6 +21,21 @@ Please note that this repository is currently being updated. We are working on e
 
 Instructions on how to install the solver will be updated soon as the repository stabilizes.
 
+```bash
+# Clone the repository
+$ git clone https://github.com/yourusername/dbdActuatorSolver.git
+
+# Navigate to the OpenFOAM installation directory
+$ cd $FOAM_USER_APPBIN
+
+# Copy the solvers into your application folder
+$ cp -r /path/to/dbdActuatorSolver/solvers .
+
+# Rebuild OpenFOAM (optional)
+$ wmake
+```
+
+
 ### **Usage**
 
 Further details on how to use the solver and test cases will be added as updates are completed.
