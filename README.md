@@ -38,7 +38,29 @@ $ wmake
 
 ### **Usage**
 
-Further details on how to use the solver and test cases will be added as updates are completed.
+#### Workflow
+
+1. **multiRegionSuzenEHD Solver**:
+
+   * Run the `multiRegionSuzenEHD` solver to compute the EHD force field (`ehdForce`).
+   * The solver outputs the EHD force field, which is used as a source term in the momentum equation.
+
+2. **dbdFlowSimple Solver**:
+
+   * Run the `dbdFlowSimple` solver with the `ehdForce` as an input field to simulate the flow dynamics under the influence of the electrohydrodynamic forces.
+
+#### Example Run
+
+```bash
+# Step 1: Run the multiRegionSuzenEHD solver
+$ multiRegionSuzenEHD
+
+# Step 2: Run the dbdFlowSimple solver
+$ dbdFlowSimple
+```
+
+Ensure that the appropriate fields (velocity, pressure, and EHD force) are correctly defined in your case setup.
+
 
 ### **Contributing**
 
